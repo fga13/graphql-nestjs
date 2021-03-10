@@ -16,14 +16,17 @@ export class OrderService {
     ){}
 
     async create(order: orderDTO): Promise<OrderModel> {
-        const clientId = order.client.id;
-        const client = this.clientService.findOne(clientId);
-        const productId = order.product.id;
-        const product = this.productService.findOne(productId);
+        const {orderDate, clientId, productId} = order;
+        const client = await this.clientService.findOne(clientId);
+        const product = await this.productService.findOne(productId);
+        const orderBean = new OrderModel();
+        orderBean.orderDate = orderDate;
+        orderBean.client = client;
+        orderBean.product = product;
         if ( client != null && product != null) {
-            return this.orderRepository.create(order);
+            const result = await this.orderRepository.save(orderBean);
+            return result;
         }
-        return Promise.reject();
     }
 
     findAll():Promise<OrderModel[]> {
@@ -36,6 +39,7 @@ export class OrderService {
 
     findByClient(id:string): Promise<OrderModel[]> {
         return this.orderRepository.createQueryBuilder("order")
-            .where("order.client = !id", {id}).getMany();
+            .leftJoinAndSelect('order.product', 'product')
+            .where("order.client = :id", {id}).getMany();
     } 
 }

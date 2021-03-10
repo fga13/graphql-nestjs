@@ -9,8 +9,14 @@ A test on a nestjs + appolo server to test graphql
 
 ## Installation
 
+Assuming installed both node and npm (and yarn if you want).
+
 ```bash
 $ npm install
+```
+or
+```bash
+$ yarn
 ```
 
 ## Running the app
@@ -30,6 +36,42 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+```
+
+### To play with graphql
+
+Visit : http://localhost:3000/graphql
+
+Try some of the following: 
+```bash
+mutation{
+  createClient(name: "tata", email: "tata@free.fr", birthdate: "1972-05-04T06:18:00Z") {id}
+}
+```
+
+```bash
+query{
+  client(id:1) {
+    id,
+    name,
+    email,
+    dateOfBirth,
+    created_at,
+    updated_at
+  }
+}
+```
+
+```bash
+query{
+  clients {
+    id,
+    name,
+    email,
+    created_at,
+    updated_at
+  }
+}
 ```
 
 ## Test

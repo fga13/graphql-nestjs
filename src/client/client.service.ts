@@ -12,7 +12,6 @@ export class ClientService {
     ){}
 
     create(client: ClientDTO) : Promise<ClientModel> {
-        console.log("Client ", client);
         return this.clientRepository.save(client);
     }
 
@@ -20,7 +19,7 @@ export class ClientService {
         return this.clientRepository.find();
     }
 
-    findOne(id: number): Promise<ClientModel> {
+    findOne(id: string): Promise<ClientModel> {
         return this.clientRepository.findOne(id);
     }
 }

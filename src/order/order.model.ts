@@ -13,9 +13,9 @@ export class OrderModel {
     @Column()
     orderDate: Date;
     @Field(type => ProductModel, {nullable: true})
-    @ManyToOne(type => ProductModel, product => product.id)
+    @ManyToOne(() => ProductModel, product => product.orders)
     product: ProductModel;
     @Field(type => ClientModel, {nullable: true})
-    @ManyToOne(type => ClientModel, client => client.id)
+    @ManyToOne(() => ClientModel, client => client.orders)
     client: ClientModel;
 }

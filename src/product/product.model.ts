@@ -15,7 +15,7 @@ export class ProductModel {
   @Column('float', { nullable: false })
   price: Number;
   @Field(type => [OrderModel], { nullable: true })
-  @OneToMany(type => OrderModel, order => order.product)
+  @OneToMany(()=> OrderModel, order => order.product)
   orders: OrderModel[]
   @Field()
   @Column()

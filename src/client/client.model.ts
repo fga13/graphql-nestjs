@@ -7,7 +7,7 @@ import { OrderModel } from '../order/order.model';
 export class ClientModel {
   @Field()
   @PrimaryGeneratedColumn()
-  id: number;
+  id: string;
   @Field()
   @Column({ length: 500, nullable: false })
   name: string;
@@ -18,7 +18,7 @@ export class ClientModel {
   @Column('timestamp', { nullable: false })
   dateOfBirth: Date;
   @Field(type => [OrderModel], { nullable: true })
-  @OneToMany(type => OrderModel, order => order.client)
+  @OneToMany(() => OrderModel, order => order.client)
   orders: OrderModel[]
   @Field()
   @Column()

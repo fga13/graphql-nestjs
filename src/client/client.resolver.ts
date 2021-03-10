@@ -14,21 +14,22 @@ export class ClientResolver {
     ) {}
 
     @Query(returns => ClientModel)
-    async client(@Args('id') id:number): Promise<ClientModel> {
+    async client(@Args('id') id:string): Promise<ClientModel> {
         return await this.clientService.findOne(id);
     }
 
     @Query(returns => [ClientModel])
     async clients(): Promise<ClientModel[]> {
         const list = await this.clientService.findAll();
-        console.log(list)
         return list;
     }
 
     @ResolveField(returns => [OrderModel])
     async orders(@Parent() client) {
         const {id} = client;
-        return this.orderService.findByClient(id);
+        const result = await this.orderService.findByClient(id);
+        console.log("orders", result);
+        return result;
     }
 
     @Mutation(returns => ClientModel)
@@ -38,7 +39,6 @@ export class ClientResolver {
         @Args('birthdate') birthdate: Date
     ): Promise<ClientModel> {
         const client: ClientDTO = {name, email, "dateOfBirth": birthdate};
-        console.log("Client Dto", client)
         return await this.clientService.create(client);
     }
 }

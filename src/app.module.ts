@@ -25,6 +25,7 @@ import { ProductModule } from './product/product.module';
     database: 'postgres',
     entities: ['dist/**/*.model.js'],
     synchronize: true,
+    logging: true
   }),],
   controllers: [AppController],
   providers: [AppService],

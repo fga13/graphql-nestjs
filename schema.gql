@@ -24,7 +24,7 @@ type OrderModel {
 }
 
 type ClientModel {
-  id: Float!
+  id: String!
   name: String!
   email: String!
   dateOfBirth: DateTime!
@@ -37,11 +37,12 @@ type Query {
   product(id: String!): ProductModel!
   order(id: String!): OrderModel!
   orders: OrderModel!
-  client(id: Float!): ClientModel!
+  client(id: String!): ClientModel!
   clients: [ClientModel!]!
 }
 
 type Mutation {
   createProduct(price: Float!, name: String!): ProductModel!
+  createOrder(date: DateTime, productId: String!, clientId: String!): OrderModel!
   createClient(birthdate: DateTime!, email: String!, name: String!): ClientModel!
 }
